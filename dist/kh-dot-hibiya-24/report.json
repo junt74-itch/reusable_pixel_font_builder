@@ -1,0 +1,34 @@
+{
+  "id": "kh-dot-hibiya-24",
+  "source": "KH-Dot-Hibiya-24.ttf",
+  "family": "KH Dot Hibiya 24",
+  "pixel_size": 24,
+  "rasterization_mode": "embedded-bitmap",
+  "embedded_strikes": [
+    {
+      "ppem_x": 24,
+      "ppem_y": 24,
+      "bit_depth": 1
+    }
+  ],
+  "selected_strike": {
+    "ppem_x": 24,
+    "ppem_y": 24,
+    "bit_depth": 1
+  },
+  "charset_count": 3971,
+  "glyph_count": 3721,
+  "missing_count": 250,
+  "missing_cmap_count": 250,
+  "missing_bitmap_count": 0,
+  "page_count": 3,
+  "atlas_size": 1024,
+  "padding": 1,
+  "validation": {
+    "page_dimensions": true,
+    "rgba_white": true,
+    "binary_alpha": true,
+    "glyph_bounds": true,
+    "glyph_overlap": true
+  }
+}

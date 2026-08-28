@@ -1,0 +1,34 @@
+{
+  "id": "jf-dot-k12x10",
+  "source": "JF-Dot-k12x10.ttf",
+  "family": "JF Dot k12x10",
+  "pixel_size": 10,
+  "rasterization_mode": "embedded-bitmap",
+  "embedded_strikes": [
+    {
+      "ppem_x": 10,
+      "ppem_y": 10,
+      "bit_depth": 1
+    }
+  ],
+  "selected_strike": {
+    "ppem_x": 10,
+    "ppem_y": 10,
+    "bit_depth": 1
+  },
+  "charset_count": 3971,
+  "glyph_count": 3727,
+  "missing_count": 244,
+  "missing_cmap_count": 244,
+  "missing_bitmap_count": 0,
+  "page_count": 1,
+  "atlas_size": 1024,
+  "padding": 1,
+  "validation": {
+    "page_dimensions": true,
+    "rgba_white": true,
+    "binary_alpha": true,
+    "glyph_bounds": true,
+    "glyph_overlap": true
+  }
+}

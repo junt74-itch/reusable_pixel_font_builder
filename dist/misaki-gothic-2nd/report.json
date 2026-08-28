@@ -1,0 +1,24 @@
+{
+  "id": "misaki-gothic-2nd",
+  "source": "misaki_gothic_2nd.ttf",
+  "family": "MisakiGothic2nd",
+  "pixel_size": 8,
+  "rasterization_mode": "outline-pixel",
+  "embedded_strikes": [],
+  "selected_strike": null,
+  "charset_count": 3971,
+  "glyph_count": 3738,
+  "missing_count": 233,
+  "missing_cmap_count": 233,
+  "missing_bitmap_count": 0,
+  "page_count": 1,
+  "atlas_size": 1024,
+  "padding": 1,
+  "validation": {
+    "page_dimensions": true,
+    "rgba_white": true,
+    "binary_alpha": true,
+    "glyph_bounds": true,
+    "glyph_overlap": true
+  }
+}

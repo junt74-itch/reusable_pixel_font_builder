@@ -1,0 +1,760 @@
+{
+  "format": "monochrome-bitmap-font-collection-v1",
+  "charset": "game_charset_standard.txt",
+  "charset_count": 3971,
+  "font_count": 23,
+  "fonts": [
+    {
+      "id": "jf-dot-k12x10",
+      "source": "JF-Dot-k12x10.ttf",
+      "family": "JF Dot k12x10",
+      "pixel_size": 10,
+      "rasterization_mode": "embedded-bitmap",
+      "embedded_strikes": [
+        {
+          "ppem_x": 10,
+          "ppem_y": 10,
+          "bit_depth": 1
+        }
+      ],
+      "selected_strike": {
+        "ppem_x": 10,
+        "ppem_y": 10,
+        "bit_depth": 1
+      },
+      "charset_count": 3971,
+      "glyph_count": 3727,
+      "missing_count": 244,
+      "missing_cmap_count": 244,
+      "missing_bitmap_count": 0,
+      "page_count": 1,
+      "atlas_size": 1024,
+      "padding": 1,
+      "validation": {
+        "page_dimensions": true,
+        "rgba_white": true,
+        "binary_alpha": true,
+        "glyph_bounds": true,
+        "glyph_overlap": true
+      }
+    },
+    {
+      "id": "jf-dot-mplus10",
+      "source": "JF-Dot-MPlus10.ttf",
+      "family": "JF Dot M+ 10",
+      "pixel_size": 10,
+      "rasterization_mode": "embedded-bitmap",
+      "embedded_strikes": [
+        {
+          "ppem_x": 10,
+          "ppem_y": 10,
+          "bit_depth": 1
+        }
+      ],
+      "selected_strike": {
+        "ppem_x": 10,
+        "ppem_y": 10,
+        "bit_depth": 1
+      },
+      "charset_count": 3971,
+      "glyph_count": 3730,
+      "missing_count": 241,
+      "missing_cmap_count": 241,
+      "missing_bitmap_count": 0,
+      "page_count": 1,
+      "atlas_size": 1024,
+      "padding": 1,
+      "validation": {
+        "page_dimensions": true,
+        "rgba_white": true,
+        "binary_alpha": true,
+        "glyph_bounds": true,
+        "glyph_overlap": true
+      }
+    },
+    {
+      "id": "jf-dot-mplus10b",
+      "source": "JF-Dot-MPlus10B.ttf",
+      "family": "JF Dot M+ 10",
+      "pixel_size": 10,
+      "rasterization_mode": "embedded-bitmap",
+      "embedded_strikes": [
+        {
+          "ppem_x": 10,
+          "ppem_y": 10,
+          "bit_depth": 1
+        }
+      ],
+      "selected_strike": {
+        "ppem_x": 10,
+        "ppem_y": 10,
+        "bit_depth": 1
+      },
+      "charset_count": 3971,
+      "glyph_count": 3730,
+      "missing_count": 241,
+      "missing_cmap_count": 241,
+      "missing_bitmap_count": 0,
+      "page_count": 1,
+      "atlas_size": 1024,
+      "padding": 1,
+      "validation": {
+        "page_dimensions": true,
+        "rgba_white": true,
+        "binary_alpha": true,
+        "glyph_bounds": true,
+        "glyph_overlap": true
+      }
+    },
+    {
+      "id": "jf-dot-mplus12",
+      "source": "JF-Dot-MPlus12.ttf",
+      "family": "JF Dot M+ 12",
+      "pixel_size": 12,
+      "rasterization_mode": "embedded-bitmap",
+      "embedded_strikes": [
+        {
+          "ppem_x": 12,
+          "ppem_y": 12,
+          "bit_depth": 1
+        }
+      ],
+      "selected_strike": {
+        "ppem_x": 12,
+        "ppem_y": 12,
+        "bit_depth": 1
+      },
+      "charset_count": 3971,
+      "glyph_count": 3730,
+      "missing_count": 241,
+      "missing_cmap_count": 241,
+      "missing_bitmap_count": 0,
+      "page_count": 1,
+      "atlas_size": 1024,
+      "padding": 1,
+      "validation": {
+        "page_dimensions": true,
+        "rgba_white": true,
+        "binary_alpha": true,
+        "glyph_bounds": true,
+        "glyph_overlap": true
+      }
+    },
+    {
+      "id": "jf-dot-mplus12b",
+      "source": "JF-Dot-MPlus12B.ttf",
+      "family": "JF Dot M+ 12",
+      "pixel_size": 12,
+      "rasterization_mode": "embedded-bitmap",
+      "embedded_strikes": [
+        {
+          "ppem_x": 12,
+          "ppem_y": 12,
+          "bit_depth": 1
+        }
+      ],
+      "selected_strike": {
+        "ppem_x": 12,
+        "ppem_y": 12,
+        "bit_depth": 1
+      },
+      "charset_count": 3971,
+      "glyph_count": 3730,
+      "missing_count": 241,
+      "missing_cmap_count": 241,
+      "missing_bitmap_count": 0,
+      "page_count": 1,
+      "atlas_size": 1024,
+      "padding": 1,
+      "validation": {
+        "page_dimensions": true,
+        "rgba_white": true,
+        "binary_alpha": true,
+        "glyph_bounds": true,
+        "glyph_overlap": true
+      }
+    },
+    {
+      "id": "kh-dot-akihabara-16",
+      "source": "KH-Dot-Akihabara-16.ttf",
+      "family": "KH Dot Akihabara 16",
+      "pixel_size": 16,
+      "rasterization_mode": "embedded-bitmap",
+      "embedded_strikes": [
+        {
+          "ppem_x": 16,
+          "ppem_y": 16,
+          "bit_depth": 1
+        }
+      ],
+      "selected_strike": {
+        "ppem_x": 16,
+        "ppem_y": 16,
+        "bit_depth": 1
+      },
+      "charset_count": 3971,
+      "glyph_count": 3689,
+      "missing_count": 282,
+      "missing_cmap_count": 282,
+      "missing_bitmap_count": 0,
+      "page_count": 1,
+      "atlas_size": 1024,
+      "padding": 1,
+      "validation": {
+        "page_dimensions": true,
+        "rgba_white": true,
+        "binary_alpha": true,
+        "glyph_bounds": true,
+        "glyph_overlap": true
+      }
+    },
+    {
+      "id": "kh-dot-dougenzaka-12",
+      "source": "KH-Dot-Dougenzaka-12.ttf",
+      "family": "KH Dot Dougenzaka 12",
+      "pixel_size": 12,
+      "rasterization_mode": "embedded-bitmap",
+      "embedded_strikes": [
+        {
+          "ppem_x": 12,
+          "ppem_y": 12,
+          "bit_depth": 1
+        }
+      ],
+      "selected_strike": {
+        "ppem_x": 12,
+        "ppem_y": 12,
+        "bit_depth": 1
+      },
+      "charset_count": 3971,
+      "glyph_count": 3689,
+      "missing_count": 282,
+      "missing_cmap_count": 282,
+      "missing_bitmap_count": 0,
+      "page_count": 1,
+      "atlas_size": 1024,
+      "padding": 1,
+      "validation": {
+        "page_dimensions": true,
+        "rgba_white": true,
+        "binary_alpha": true,
+        "glyph_bounds": true,
+        "glyph_overlap": true
+      }
+    },
+    {
+      "id": "kh-dot-dougenzaka-16",
+      "source": "KH-Dot-Dougenzaka-16.ttf",
+      "family": "KH Dot Dougenzaka 16",
+      "pixel_size": 16,
+      "rasterization_mode": "embedded-bitmap",
+      "embedded_strikes": [
+        {
+          "ppem_x": 16,
+          "ppem_y": 16,
+          "bit_depth": 1
+        }
+      ],
+      "selected_strike": {
+        "ppem_x": 16,
+        "ppem_y": 16,
+        "bit_depth": 1
+      },
+      "charset_count": 3971,
+      "glyph_count": 3689,
+      "missing_count": 282,
+      "missing_cmap_count": 282,
+      "missing_bitmap_count": 0,
+      "page_count": 2,
+      "atlas_size": 1024,
+      "padding": 1,
+      "validation": {
+        "page_dimensions": true,
+        "rgba_white": true,
+        "binary_alpha": true,
+        "glyph_bounds": true,
+        "glyph_overlap": true
+      }
+    },
+    {
+      "id": "kh-dot-hatchoubori-16",
+      "source": "KH-Dot-Hatchoubori-16.ttf",
+      "family": "KH Dot Hatcyoubori 16",
+      "pixel_size": 16,
+      "rasterization_mode": "embedded-bitmap",
+      "embedded_strikes": [
+        {
+          "ppem_x": 16,
+          "ppem_y": 16,
+          "bit_depth": 1
+        }
+      ],
+      "selected_strike": {
+        "ppem_x": 16,
+        "ppem_y": 16,
+        "bit_depth": 1
+      },
+      "charset_count": 3971,
+      "glyph_count": 3689,
+      "missing_count": 282,
+      "missing_cmap_count": 282,
+      "missing_bitmap_count": 0,
+      "page_count": 2,
+      "atlas_size": 1024,
+      "padding": 1,
+      "validation": {
+        "page_dimensions": true,
+        "rgba_white": true,
+        "binary_alpha": true,
+        "glyph_bounds": true,
+        "glyph_overlap": true
+      }
+    },
+    {
+      "id": "kh-dot-hibiya-24",
+      "source": "KH-Dot-Hibiya-24.ttf",
+      "family": "KH Dot Hibiya 24",
+      "pixel_size": 24,
+      "rasterization_mode": "embedded-bitmap",
+      "embedded_strikes": [
+        {
+          "ppem_x": 24,
+          "ppem_y": 24,
+          "bit_depth": 1
+        }
+      ],
+      "selected_strike": {
+        "ppem_x": 24,
+        "ppem_y": 24,
+        "bit_depth": 1
+      },
+      "charset_count": 3971,
+      "glyph_count": 3721,
+      "missing_count": 250,
+      "missing_cmap_count": 250,
+      "missing_bitmap_count": 0,
+      "page_count": 3,
+      "atlas_size": 1024,
+      "padding": 1,
+      "validation": {
+        "page_dimensions": true,
+        "rgba_white": true,
+        "binary_alpha": true,
+        "glyph_bounds": true,
+        "glyph_overlap": true
+      }
+    },
+    {
+      "id": "kh-dot-hibiya-32",
+      "source": "KH-Dot-Hibiya-32.ttf",
+      "family": "KH Dot Hibiya 32",
+      "pixel_size": 32,
+      "rasterization_mode": "embedded-bitmap",
+      "embedded_strikes": [
+        {
+          "ppem_x": 32,
+          "ppem_y": 32,
+          "bit_depth": 1
+        }
+      ],
+      "selected_strike": {
+        "ppem_x": 32,
+        "ppem_y": 32,
+        "bit_depth": 1
+      },
+      "charset_count": 3971,
+      "glyph_count": 3721,
+      "missing_count": 250,
+      "missing_cmap_count": 250,
+      "missing_bitmap_count": 0,
+      "page_count": 4,
+      "atlas_size": 1024,
+      "padding": 1,
+      "validation": {
+        "page_dimensions": true,
+        "rgba_white": true,
+        "binary_alpha": true,
+        "glyph_bounds": true,
+        "glyph_overlap": true
+      }
+    },
+    {
+      "id": "kh-dot-kabutochou-16",
+      "source": "KH-Dot-Kabutochou-16.ttf",
+      "family": "KH Dot Kabutochou 16",
+      "pixel_size": 16,
+      "rasterization_mode": "embedded-bitmap",
+      "embedded_strikes": [
+        {
+          "ppem_x": 16,
+          "ppem_y": 16,
+          "bit_depth": 1
+        }
+      ],
+      "selected_strike": {
+        "ppem_x": 16,
+        "ppem_y": 16,
+        "bit_depth": 1
+      },
+      "charset_count": 3971,
+      "glyph_count": 3689,
+      "missing_count": 282,
+      "missing_cmap_count": 282,
+      "missing_bitmap_count": 0,
+      "page_count": 1,
+      "atlas_size": 1024,
+      "padding": 1,
+      "validation": {
+        "page_dimensions": true,
+        "rgba_white": true,
+        "binary_alpha": true,
+        "glyph_bounds": true,
+        "glyph_overlap": true
+      }
+    },
+    {
+      "id": "kh-dot-kagurazaka-12",
+      "source": "KH-Dot-Kagurazaka-12.ttf",
+      "family": "KH Dot kagurazaka 12",
+      "pixel_size": 12,
+      "rasterization_mode": "embedded-bitmap",
+      "embedded_strikes": [
+        {
+          "ppem_x": 12,
+          "ppem_y": 12,
+          "bit_depth": 1
+        }
+      ],
+      "selected_strike": {
+        "ppem_x": 12,
+        "ppem_y": 12,
+        "bit_depth": 1
+      },
+      "charset_count": 3971,
+      "glyph_count": 3689,
+      "missing_count": 282,
+      "missing_cmap_count": 282,
+      "missing_bitmap_count": 0,
+      "page_count": 1,
+      "atlas_size": 1024,
+      "padding": 1,
+      "validation": {
+        "page_dimensions": true,
+        "rgba_white": true,
+        "binary_alpha": true,
+        "glyph_bounds": true,
+        "glyph_overlap": true
+      }
+    },
+    {
+      "id": "kh-dot-kagurazaka-16",
+      "source": "KH-Dot-Kagurazaka-16.ttf",
+      "family": "KH Dot kagurazaka 16",
+      "pixel_size": 16,
+      "rasterization_mode": "embedded-bitmap",
+      "embedded_strikes": [
+        {
+          "ppem_x": 16,
+          "ppem_y": 16,
+          "bit_depth": 1
+        }
+      ],
+      "selected_strike": {
+        "ppem_x": 16,
+        "ppem_y": 16,
+        "bit_depth": 1
+      },
+      "charset_count": 3971,
+      "glyph_count": 3721,
+      "missing_count": 250,
+      "missing_cmap_count": 250,
+      "missing_bitmap_count": 0,
+      "page_count": 2,
+      "atlas_size": 1024,
+      "padding": 1,
+      "validation": {
+        "page_dimensions": true,
+        "rgba_white": true,
+        "binary_alpha": true,
+        "glyph_bounds": true,
+        "glyph_overlap": true
+      }
+    },
+    {
+      "id": "kh-dot-kodenmachou-12-ki",
+      "source": "KH-Dot-Kodenmachou-12-Ki.ttf",
+      "family": "KH Dot Kodenmachou 12 Ki",
+      "pixel_size": 12,
+      "rasterization_mode": "embedded-bitmap",
+      "embedded_strikes": [
+        {
+          "ppem_x": 12,
+          "ppem_y": 12,
+          "bit_depth": 1
+        }
+      ],
+      "selected_strike": {
+        "ppem_x": 12,
+        "ppem_y": 12,
+        "bit_depth": 1
+      },
+      "charset_count": 3971,
+      "glyph_count": 3721,
+      "missing_count": 250,
+      "missing_cmap_count": 250,
+      "missing_bitmap_count": 0,
+      "page_count": 1,
+      "atlas_size": 1024,
+      "padding": 1,
+      "validation": {
+        "page_dimensions": true,
+        "rgba_white": true,
+        "binary_alpha": true,
+        "glyph_bounds": true,
+        "glyph_overlap": true
+      }
+    },
+    {
+      "id": "kh-dot-kodenmachou-12-ko",
+      "source": "KH-Dot-Kodenmachou-12-Ko.ttf",
+      "family": "KH Dot Kodenmachou 12 Ko",
+      "pixel_size": 12,
+      "rasterization_mode": "embedded-bitmap",
+      "embedded_strikes": [
+        {
+          "ppem_x": 12,
+          "ppem_y": 12,
+          "bit_depth": 1
+        }
+      ],
+      "selected_strike": {
+        "ppem_x": 12,
+        "ppem_y": 12,
+        "bit_depth": 1
+      },
+      "charset_count": 3971,
+      "glyph_count": 3689,
+      "missing_count": 282,
+      "missing_cmap_count": 282,
+      "missing_bitmap_count": 0,
+      "page_count": 1,
+      "atlas_size": 1024,
+      "padding": 1,
+      "validation": {
+        "page_dimensions": true,
+        "rgba_white": true,
+        "binary_alpha": true,
+        "glyph_bounds": true,
+        "glyph_overlap": true
+      }
+    },
+    {
+      "id": "kh-dot-kodenmachou-12",
+      "source": "KH-Dot-Kodenmachou-12.ttf",
+      "family": "KH Dot Kodenmachou 12",
+      "pixel_size": 12,
+      "rasterization_mode": "embedded-bitmap",
+      "embedded_strikes": [
+        {
+          "ppem_x": 12,
+          "ppem_y": 12,
+          "bit_depth": 1
+        }
+      ],
+      "selected_strike": {
+        "ppem_x": 12,
+        "ppem_y": 12,
+        "bit_depth": 1
+      },
+      "charset_count": 3971,
+      "glyph_count": 3689,
+      "missing_count": 282,
+      "missing_cmap_count": 282,
+      "missing_bitmap_count": 0,
+      "page_count": 1,
+      "atlas_size": 1024,
+      "padding": 1,
+      "validation": {
+        "page_dimensions": true,
+        "rgba_white": true,
+        "binary_alpha": true,
+        "glyph_bounds": true,
+        "glyph_overlap": true
+      }
+    },
+    {
+      "id": "kh-dot-kodenmachou-16-ki",
+      "source": "KH-Dot-Kodenmachou-16-Ki.ttf",
+      "family": "KH Dot Kodenmachou 16 Ki",
+      "pixel_size": 16,
+      "rasterization_mode": "embedded-bitmap",
+      "embedded_strikes": [
+        {
+          "ppem_x": 16,
+          "ppem_y": 16,
+          "bit_depth": 1
+        }
+      ],
+      "selected_strike": {
+        "ppem_x": 16,
+        "ppem_y": 16,
+        "bit_depth": 1
+      },
+      "charset_count": 3971,
+      "glyph_count": 3689,
+      "missing_count": 282,
+      "missing_cmap_count": 282,
+      "missing_bitmap_count": 0,
+      "page_count": 1,
+      "atlas_size": 1024,
+      "padding": 1,
+      "validation": {
+        "page_dimensions": true,
+        "rgba_white": true,
+        "binary_alpha": true,
+        "glyph_bounds": true,
+        "glyph_overlap": true
+      }
+    },
+    {
+      "id": "kh-dot-kodenmachou-16",
+      "source": "KH-Dot-Kodenmachou-16.ttf",
+      "family": "KH Dot Kodenmachou 16",
+      "pixel_size": 16,
+      "rasterization_mode": "embedded-bitmap",
+      "embedded_strikes": [
+        {
+          "ppem_x": 16,
+          "ppem_y": 16,
+          "bit_depth": 1
+        }
+      ],
+      "selected_strike": {
+        "ppem_x": 16,
+        "ppem_y": 16,
+        "bit_depth": 1
+      },
+      "charset_count": 3971,
+      "glyph_count": 3689,
+      "missing_count": 282,
+      "missing_cmap_count": 282,
+      "missing_bitmap_count": 0,
+      "page_count": 1,
+      "atlas_size": 1024,
+      "padding": 1,
+      "validation": {
+        "page_dimensions": true,
+        "rgba_white": true,
+        "binary_alpha": true,
+        "glyph_bounds": true,
+        "glyph_overlap": true
+      }
+    },
+    {
+      "id": "kh-dot-ningyouchou-16",
+      "source": "KH-Dot-Ningyouchou-16.ttf",
+      "family": "KH Dot Ningyouchou 16",
+      "pixel_size": 16,
+      "rasterization_mode": "embedded-bitmap",
+      "embedded_strikes": [
+        {
+          "ppem_x": 16,
+          "ppem_y": 16,
+          "bit_depth": 1
+        }
+      ],
+      "selected_strike": {
+        "ppem_x": 16,
+        "ppem_y": 16,
+        "bit_depth": 1
+      },
+      "charset_count": 3971,
+      "glyph_count": 3689,
+      "missing_count": 282,
+      "missing_cmap_count": 282,
+      "missing_bitmap_count": 0,
+      "page_count": 1,
+      "atlas_size": 1024,
+      "padding": 1,
+      "validation": {
+        "page_dimensions": true,
+        "rgba_white": true,
+        "binary_alpha": true,
+        "glyph_bounds": true,
+        "glyph_overlap": true
+      }
+    },
+    {
+      "id": "misaki-gothic",
+      "source": "misaki_gothic.ttf",
+      "family": "MisakiGothic",
+      "pixel_size": 8,
+      "rasterization_mode": "outline-pixel",
+      "embedded_strikes": [],
+      "selected_strike": null,
+      "charset_count": 3971,
+      "glyph_count": 3738,
+      "missing_count": 233,
+      "missing_cmap_count": 233,
+      "missing_bitmap_count": 0,
+      "page_count": 1,
+      "atlas_size": 1024,
+      "padding": 1,
+      "validation": {
+        "page_dimensions": true,
+        "rgba_white": true,
+        "binary_alpha": true,
+        "glyph_bounds": true,
+        "glyph_overlap": true
+      }
+    },
+    {
+      "id": "misaki-gothic-2nd",
+      "source": "misaki_gothic_2nd.ttf",
+      "family": "MisakiGothic2nd",
+      "pixel_size": 8,
+      "rasterization_mode": "outline-pixel",
+      "embedded_strikes": [],
+      "selected_strike": null,
+      "charset_count": 3971,
+      "glyph_count": 3738,
+      "missing_count": 233,
+      "missing_cmap_count": 233,
+      "missing_bitmap_count": 0,
+      "page_count": 1,
+      "atlas_size": 1024,
+      "padding": 1,
+      "validation": {
+        "page_dimensions": true,
+        "rgba_white": true,
+        "binary_alpha": true,
+        "glyph_bounds": true,
+        "glyph_overlap": true
+      }
+    },
+    {
+      "id": "misaki-mincho",
+      "source": "misaki_mincho.ttf",
+      "family": "MisakiMincho",
+      "pixel_size": 8,
+      "rasterization_mode": "outline-pixel",
+      "embedded_strikes": [],
+      "selected_strike": null,
+      "charset_count": 3971,
+      "glyph_count": 3738,
+      "missing_count": 233,
+      "missing_cmap_count": 233,
+      "missing_bitmap_count": 0,
+      "page_count": 1,
+      "atlas_size": 1024,
+      "padding": 1,
+      "validation": {
+        "page_dimensions": true,
+        "rgba_white": true,
+        "binary_alpha": true,
+        "glyph_bounds": true,
+        "glyph_overlap": true
+      }
+    }
+  ]
+}
