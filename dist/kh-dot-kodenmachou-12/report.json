@@ -16,13 +16,14 @@
     "ppem_y": 12,
     "bit_depth": 1
   },
-  "charset_count": 3971,
-  "glyph_count": 3689,
-  "missing_count": 282,
-  "missing_cmap_count": 282,
+  "charset_count": 7150,
+  "glyph_count": 7001,
+  "missing_count": 149,
+  "missing_cmap_count": 149,
   "missing_bitmap_count": 0,
   "page_count": 1,
   "atlas_size": 2048,
+  "max_atlas_size": 4096,
   "padding": 1,
   "validation": {
     "page_dimensions": true,

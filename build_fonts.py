@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build deterministic, monochrome, multi-page bitmap font atlases."""
+"""Build deterministic, monochrome bitmap fonts for the Phaser 4 loader."""
 
 from __future__ import annotations
 
@@ -9,7 +9,8 @@ import re
 import shutil
 import sys
 import unicodedata
-from dataclasses import asdict, dataclass
+import xml.etree.ElementTree as ET
+from dataclasses import dataclass
 from pathlib import Path
 from typing import Iterable
 
@@ -21,6 +22,8 @@ from PIL import Image, ImageFont
 # strikes.  Keep the allowlist explicit so ordinary outline fonts are not
 # silently accepted as bitmap sources.
 OUTLINE_PIXEL_FONT_SIZES = {
+    "04b_19_": 14,
+    "04b_25_": 12,
     "misaki_gothic": 8,
     "misaki_gothic_2nd": 8,
     "misaki_mincho": 8,
@@ -229,81 +232,105 @@ def pack_glyphs(glyphs: list[Glyph], atlas_size: int, padding: int) -> int:
     return len(pages)
 
 
-def write_atlases(output_dir: Path, glyphs: list[Glyph], page_count: int, atlas_size: int) -> list[str]:
-    filenames: list[str] = []
-    for page_index in range(page_count):
-        image = Image.new("RGBA", (atlas_size, atlas_size), (255, 255, 255, 0))
-        for glyph in glyphs:
-            if glyph.page != page_index or glyph.bitmap is None:
-                continue
-            white = Image.new("RGBA", (glyph.width, glyph.height), (255, 255, 255, 255))
-            image.paste(white, (glyph.x, glyph.y), glyph.bitmap)
-        filename = f"atlas-{page_index}.png"
-        image.save(output_dir / filename, format="PNG", compress_level=9, optimize=False)
-        filenames.append(filename)
-    return filenames
+def pack_single_page(glyphs: list[Glyph], max_atlas_size: int, padding: int) -> int:
+    atlas_size = 64
+    while True:
+        page_count = pack_glyphs(glyphs, atlas_size, padding)
+        if page_count == 1:
+            return atlas_size
+        if atlas_size == max_atlas_size:
+            raise ValueError(
+                f"Glyph set needs {page_count} atlas pages at the {max_atlas_size}px limit; "
+                "increase --atlas-size"
+            )
+        atlas_size = min(atlas_size * 2, max_atlas_size)
 
 
-def write_bmfont(
-    path: Path,
+def write_atlas(path: Path, glyphs: list[Glyph], atlas_size: int) -> None:
+    image = Image.new("RGBA", (atlas_size, atlas_size), (255, 255, 255, 0))
+    for glyph in glyphs:
+        if glyph.bitmap is None:
+            continue
+        white = Image.new("RGBA", (glyph.width, glyph.height), (255, 255, 255, 255))
+        image.paste(white, (glyph.x, glyph.y), glyph.bitmap)
+    image.save(path, format="PNG", compress_level=9, optimize=False)
+
+
+def bmfont_attributes(
     family: str,
     size: int,
     ascent: int,
     descent: int,
     atlas_size: int,
-    pages: list[str],
     glyphs: list[Glyph],
-) -> None:
-    escaped_family = family.replace('"', "'")
-    lines = [
-        f'info face="{escaped_family}" size={size} bold=0 italic=0 charset="" unicode=1 stretchH=100 smooth=0 aa=1 padding=0,0,0,0 spacing=0,0 outline=0',
-        f"common lineHeight={ascent + descent} base={ascent} scaleW={atlas_size} scaleH={atlas_size} pages={len(pages)} packed=0 alphaChnl=0 redChnl=4 greenChnl=4 blueChnl=4",
-    ]
-    lines.extend(f'page id={index} file="{filename}"' for index, filename in enumerate(pages))
-    lines.append(f"chars count={len(glyphs)}")
-    for glyph in sorted(glyphs, key=lambda item: item.codepoint):
-        lines.append(
-            f"char id={glyph.codepoint} x={glyph.x} y={glyph.y} width={glyph.width} "
-            f"height={glyph.height} xoffset={glyph.xoffset} yoffset={glyph.yoffset} "
-            f"xadvance={glyph.xadvance} page={glyph.page} chnl=8"
-        )
-    lines.append("kernings count=0")
-    path.write_text("\n".join(lines) + "\n", encoding="utf-8", newline="\n")
-
-
-def glyph_json(glyph: Glyph) -> dict:
-    data = asdict(glyph)
-    data.pop("bitmap")
-    data.pop("char")
-    return data
-
-
-def write_json_font(
-    path: Path,
-    asset_id: str,
-    family: str,
-    source: str,
-    size: int,
-    ascent: int,
-    descent: int,
-    atlas_size: int,
-    padding: int,
-    pages: list[str],
-    glyphs: list[Glyph],
-) -> None:
-    document = {
-        "format": "monochrome-bitmap-font-v1",
-        "id": asset_id,
-        "family": family,
-        "source": source,
-        "size": size,
-        "lineHeight": ascent + descent,
-        "base": ascent,
-        "atlas": {"width": atlas_size, "height": atlas_size, "padding": padding, "pages": pages},
-        "glyphs": {str(glyph.codepoint): glyph_json(glyph) for glyph in sorted(glyphs, key=lambda item: item.codepoint)},
-        "kernings": [],
+) -> tuple[dict[str, str], dict[str, str], list[dict[str, str]]]:
+    info = {
+        "face": family,
+        "size": str(size),
+        "bold": "0",
+        "italic": "0",
+        "charset": "",
+        "unicode": "1",
+        "stretchH": "100",
+        "smooth": "0",
+        "aa": "1",
+        "padding": "0,0,0,0",
+        "spacing": "0,0",
+        "outline": "0",
     }
-    path.write_text(json.dumps(document, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n")
+    common = {
+        "lineHeight": str(ascent + descent),
+        "base": str(ascent),
+        "scaleW": str(atlas_size),
+        "scaleH": str(atlas_size),
+        "pages": "1",
+        "packed": "0",
+        "alphaChnl": "0",
+        "redChnl": "4",
+        "greenChnl": "4",
+        "blueChnl": "4",
+    }
+    chars = [
+        {
+            "id": str(glyph.codepoint),
+            "x": str(glyph.x),
+            "y": str(glyph.y),
+            "width": str(glyph.width),
+            "height": str(glyph.height),
+            "xoffset": str(glyph.xoffset),
+            "yoffset": str(glyph.yoffset),
+            "xadvance": str(glyph.xadvance),
+            "page": "0",
+            "chnl": "8",
+        }
+        for glyph in sorted(glyphs, key=lambda item: item.codepoint)
+    ]
+    return info, common, chars
+
+
+def write_xml_font(
+    path: Path,
+    family: str,
+    size: int,
+    ascent: int,
+    descent: int,
+    atlas_size: int,
+    glyphs: list[Glyph],
+) -> None:
+    info, common, chars = bmfont_attributes(family, size, ascent, descent, atlas_size, glyphs)
+    root = ET.Element("font")
+    ET.SubElement(root, "info", info)
+    ET.SubElement(root, "common", common)
+    pages_element = ET.SubElement(root, "pages")
+    ET.SubElement(pages_element, "page", {"id": "0", "file": "font.png"})
+    chars_element = ET.SubElement(root, "chars", {"count": str(len(chars))})
+    for char in chars:
+        ET.SubElement(chars_element, "char", char)
+    ET.SubElement(root, "kernings", {"count": "0"})
+    ET.indent(root, space="  ")
+    ET.ElementTree(root).write(path, encoding="utf-8", xml_declaration=True)
+    with path.open("a", encoding="utf-8", newline="\n") as output:
+        output.write("\n")
 
 
 def display_character(codepoint: int) -> str:
@@ -390,25 +417,16 @@ def build_font(font_path: Path, charset: list[int], output_root: Path, atlas_siz
     missing_reasons.update({codepoint: "missing-bitmap-strike" for codepoint in missing_bitmap})
     missing = [codepoint for codepoint in charset if codepoint in missing_reasons]
     glyphs, ascent, descent = render_glyphs(font_path, size, present)
-    page_count = pack_glyphs(glyphs, atlas_size, padding)
-    layout_validation = validate_layout(glyphs, page_count, atlas_size)
-    pages = write_atlases(output_dir, glyphs, page_count, atlas_size)
-    write_bmfont(output_dir / "font.fnt", metadata["family"], size, ascent, descent, atlas_size, pages, glyphs)
-    write_json_font(
-        output_dir / "font.json",
-        asset_id,
-        metadata["family"],
-        font_path.name,
-        size,
-        ascent,
-        descent,
-        atlas_size,
-        padding,
-        pages,
-        glyphs,
+    selected_atlas_size = pack_single_page(glyphs, atlas_size, padding)
+    page_count = 1
+    layout_validation = validate_layout(glyphs, page_count, selected_atlas_size)
+    atlas_filename = "font.png"
+    write_atlas(output_dir / atlas_filename, glyphs, selected_atlas_size)
+    write_xml_font(
+        output_dir / "font.xml", metadata["family"], size, ascent, descent, selected_atlas_size, glyphs
     )
     write_missing(output_dir / "missing-characters.txt", missing, missing_reasons)
-    validation = validate_pages(output_dir, pages, atlas_size)
+    validation = validate_pages(output_dir, [atlas_filename], selected_atlas_size)
     validation.update(layout_validation)
 
     license_text = "\n".join(
@@ -430,7 +448,8 @@ def build_font(font_path: Path, charset: list[int], output_root: Path, atlas_siz
         "missing_cmap_count": len(missing_cmap),
         "missing_bitmap_count": len(missing_bitmap),
         "page_count": page_count,
-        "atlas_size": atlas_size,
+        "atlas_size": selected_atlas_size,
+        "max_atlas_size": atlas_size,
         "padding": padding,
         "validation": validation,
     }
@@ -455,7 +474,7 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--fonts-dir", type=Path, default=Path("_font_asset"))
     parser.add_argument("--charset", type=Path, default=Path("character_set/game_charset_standard.txt"))
     parser.add_argument("--output-dir", type=Path, default=Path("dist"))
-    parser.add_argument("--atlas-size", type=int, default=2048)
+    parser.add_argument("--atlas-size", type=int, default=4096)
     parser.add_argument("--padding", type=int, default=1)
     parser.add_argument("--font", action="append", help="Only build matching TTF filename (repeatable).")
     parser.add_argument("--clean", action=argparse.BooleanOptionalAction, default=True)
