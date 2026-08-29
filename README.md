@@ -1,15 +1,13 @@
-このリポジトリは、ttfを基に、収録文字セットに応じたビットマップフォントアトラスを作成するためのものです。
+このリポジトリは、TTF を基に収録文字セットに応じたビットマップフォントアトラスを作成します。再利用方針は [`docs/REPOSITORY_POLICY.md`](docs/REPOSITORY_POLICY.md) です。
 
-## 完成済みアセットを利用する場合
+提供価値は二本立てです。
 
-ゲームなどの別プロジェクトからこのリポジトリを参照する場合、ビルド済みの完成品は
-リポジトリ直下の `dist/` フォルダにあります。アセットを利用するだけであれば、
-`_font_asset/` のTTFやビルドスクリプトではなく、`dist/` 内のファイルを使用してください。
+- **(A) 既製アセットをすぐ使う。** `dist/` をコピーするだけでよく、ビルダーもソース TTF も不要です。
+- **(B) 必要文字だけの同等アセットを自前ビルドする。** 単一ページ PNG、BMFont XML、`report.json`、`missing-characters.txt`、`license.txt` を同形式で生成できます。欠落の代替補完はしません。PNG のバイト一致は保証しません。
 
-まず `dist/manifest.json` を参照すると、収録されている全フォントと、各フォントの
-アセットディレクトリ、ピクセルサイズ、アトラス枚数、欠落文字数を確認できます。
-各ディレクトリには、Phaser 4標準ローダーで直接読み込めるPNGアトラスと
-BMFont XML形式のメトリクスがまとまっています。
+## 完成済みアセットを利用する場合（導線 A）
+
+ゲームなどの別プロジェクトから参照する場合は、`dist/` を使ってください。まず `dist/manifest.json` で font-id、ピクセルサイズ、アトラス枚数、欠落文字数を確認します。
 
 ```text
 dist/
@@ -22,13 +20,47 @@ dist/
     license.txt
 ```
 
-作成するビットマップフォントは、もととなるttfもビットマップフォントであることに鑑み、1ビットカラー、つまり白黒二値で表現できることを目指します。
+次の事実は隠さない前提です。
 
-truetypeフォントは _font_asset の中に配置されています。
-全てのフォントを一括して、個別のアセットとして作成することを期待します。
+- 既製 `dist/` の文字集合は `game_charset_standard.txt`（ユニーク 7,150 文字）です。
+- `04b-19` と `04b-25` は 97 グリフ、欠落 7,053 です。日本語用ではありません。
+- `kh-dot-hibiya-24` と `kh-dot-hibiya-32` のアトラスは 4,096 ピクセルで、既定上限ちょうどです。
+- 欠落は契約条件であり、代替フォントでは補完しません。必要文字が足りるかは `missing-characters.txt` で判断してください。
+- 再配布するときは各 `license.txt` をセットに含めます。`license.txt` は TTF の name テーブル転記であり、原典の代替ではありません。
 
-収録文字セットは character_set の中に配置されています。
-まずはstandardの文字セットを使うことを期待します。
+Phaser 4 では PNG と XML を標準ローダーへ渡します。
+
+```javascript
+preload() {
+  this.load.bitmapFont(
+    "kh-dot-hibiya-32",
+    "assets/fonts/kh-dot-hibiya-32/font.png",
+    "assets/fonts/kh-dot-hibiya-32/font.xml",
+  );
+}
+```
+
+## 必要文字だけで自前ビルドする場合（導線 B）
+
+同等アセットとは、単一ページの白色 RGBA・二値アルファ PNG、BMFont XML、report / missing / license のセットです。代替補完はしません。
+
+KH-Dot、JF-Dot、美咲の TTF は `_font_asset/` に収録しています。04B（`04B_19_.TTF` / `04b_25_.ttf`）はライセンスを確認できないため Git 非収録です。04B をビルドする場合は、利用者が入手して `_font_asset/` へ置きます。
+
+既定の `--clean` は出力ディレクトリ全体を削除します。既製 `dist/` を消さないよう、カスタムビルドでは `--output-dir` で `dist/` 以外を指定してください。
+
+```powershell
+uv sync
+uv run pytest -q
+uv run python build_fonts.py --charset <txt> --font <TTF名> --output-dir <dist以外>
+```
+
+成功条件は、終了コード 0、`page_count == 1`、および `report.json` の `validation` がすべて真であることです。
+
+- `page_dimensions`
+- `rgba_white`
+- `binary_alpha`
+- `glyph_bounds`
+- `glyph_overlap`
 
 ## 必要なもの
 
@@ -37,34 +69,18 @@ truetypeフォントは _font_asset の中に配置されています。
 
 依存関係は `pyproject.toml` と `uv.lock` で固定します。
 
-## 生成方法
+## 既製 dist を再生成する場合
 
-リポジトリのルートで次を実行します。
+リポジトリのルートで次を実行します。既定では `dist/` 全体を削除してから作り直します。
 
 ```powershell
 uv sync
 uv run python build_fonts.py
 ```
 
-`_font_asset/*.ttf` が自動的に列挙され、フォントごとに独立したアセットが
-`dist/` 以下へ生成されます。既定の文字集合は
-`character_set/game_charset_standard.txt` です。
+`_font_asset/` の収録 TTF が列挙されます。04B を置いていない場合、その 2 フォントは生成されません。既定の文字集合は `character_set/game_charset_standard.txt` です。
 
-既定のアトラス上限は4096x4096ピクセル、グリフ間の余白は1ピクセルです。
-64x64から上限まで段階的に試し、単一ページに収まる最小の正方形サイズを使用します。
-Phaser 4標準ローダーはビットマップフォントに単一テクスチャを使用するため、
-1枚に収まらない場合はビルドを停止します。その場合は `--atlas-size` を大きくしてください。
-
-```text
-dist/
-  manifest.json
-  kh-dot-dougenzaka-16/
-    font.png
-    font.xml
-    missing-characters.txt
-    report.json
-    license.txt
-```
+既定のアトラス上限は 4096x4096 ピクセル、グリフ間の余白は 1 ピクセルです。64x64 から上限まで段階的に試し、単一ページに収まる最小の正方形サイズを使用します。1 枚に収まらない場合はビルドを停止します。その場合は `--atlas-size` を大きくしてください。
 
 ## 主なオプション
 
@@ -78,37 +94,33 @@ uv run python build_fonts.py --font KH-Dot-Hibiya-32.ttf --no-clean
 # Extended文字集合を使用
 uv run python build_fonts.py --charset character_set/game_charset_extended.txt
 
-# 別の出力先を使用
+# 別の出力先を使用（カスタムビルドで推奨）
 uv run python build_fonts.py --output-dir output/fonts
 ```
 
 `--font` は複数回指定できます。`--padding 0` も指定できますが、ゲームでの
-テクスチャサンプリング時のにじみを防ぐため、既定値の1を推奨します。
-
-## Phaser 4での読み込み
-
-PNGとXMLを標準ローダーへ渡します。
-
-```javascript
-preload() {
-  this.load.bitmapFont(
-    "kh-dot-hibiya-32",
-    "assets/fonts/kh-dot-hibiya-32/font.png",
-    "assets/fonts/kh-dot-hibiya-32/font.xml",
-  );
-}
-```
+テクスチャサンプリング時のにじみを防ぐため、既定値の 1 を推奨します。
 
 ## 出力仕様
 
-- PNGはRGBA形式で、RGBは白固定、アルファは0または255だけを使用します。
-- TTF内に1-bit埋め込みビットマップがある場合は、そのストライクのピクセルサイズを優先して使用します。
-- 埋め込みビットマップを持たない2019年版の美咲フォント3種は、既知の8pxピクセルアウトラインとして二値ラスタライズします。通常のアウトラインフォントへの暗黙のフォールバックは行いません。
-- グリフは回転せず、配置は常に決定的です。成果物はPhaser 4標準ローダーに合わせて単一ページです。
-- `font.xml` はAngelCode BMFont XML形式です。
-- 文字集合に存在してTTF側にない文字は、代替フォントで補わず `missing-characters.txt` に理由とともに記録します。
+- PNG は RGBA 形式で、RGB は白固定、アルファは 0 または 255 だけを使用します。
+- TTF 内に 1-bit 埋め込みビットマップがある場合は、そのストライクのピクセルサイズを優先して使用します。
+- 埋め込みビットマップを持たない 2019 年版の美咲フォント 3 種は、既知の 8px ピクセルアウトラインとして二値ラスタライズします。通常のアウトラインフォントへの暗黙のフォールバックは行いません。
+- グリフは回転せず、配置は常に決定的です。成果物は Phaser 4 標準ローダーに合わせて単一ページです。
+- `font.xml` は AngelCode BMFont XML 形式です。
+- 文字集合に存在して TTF 側にない文字は、代替フォントで補わず `missing-characters.txt` に理由とともに記録します。
 - `report.json` にはストライク情報、文字数、ページ数、二値性・境界・重複の検証結果を記録します。
-- `license.txt` にはTTFのnameテーブルに収録された著作権・ライセンス情報を転記します。
+- `license.txt` には TTF の name テーブルに収録された著作権・ライセンス情報を転記します。
+
+再現性は手続き再現です。同一の TTF 内容、charset、CLI、`uv.lock`、Python 3.11 以降を前提に、font-id、glyph / missing、atlas、validation、単一ページが一致します。OS を超える PNG バイト一致は保証しません。
+
+## ライセンス
+
+扱いは三層です。本節は観察と確認事項までとし、利用可否の法的結論は出しません。
+
+1. **ビルダーコード:** リポジトリ直下にコード用 `LICENSE` はありません。
+2. **ソース TTF:** 利用前に各フォントの原典を確認してください。KH-Dot、JF-Dot、美咲は `_font_asset/` に収録しています。04B は収録していません。
+3. **生成アセット:** フォントの派生物です。再配布時は各 `license.txt` をセットに含めます。転記は原典の代替ではありません。
 
 ## テスト
 
