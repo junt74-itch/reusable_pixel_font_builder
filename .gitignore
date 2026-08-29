@@ -2,4 +2,6 @@
 .pytest_cache/
 __pycache__/
 *.py[cod]
-/_font_asset/*.ttf
+# 04B はライセンス確認不可のため Git 非収録（KH / JF / 美咲は収録可）
+/_font_asset/04B_19_.TTF
+/_font_asset/04b_25_.ttf
