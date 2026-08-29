@@ -11,8 +11,8 @@ UTF-8文字セットです。
   - 小容量UI、短文中心のゲーム向け
 
 - game_charset_standard.txt
-  - 3,971 文字
-  - Lite + 全角英数 + CP932/JIS系非漢字 + 漢字約3,200字
+  - 7,150 文字（重複除去後）
+  - kgsi/japanese_full.txt（ASCII・ひらがな・カタカナ・JIS X 0208:1997 第1・第2水準漢字）
   - 一般的な日本語ゲームでの標準セットを想定
   - まずはこれを推奨
 
@@ -39,8 +39,8 @@ BMFont CLI / msdf-bmfont-cli 等で charset-file を指定できる場合、
 
 ## 注意
 
-このセットの漢字部分は Python の CP932 コーデックから機械的に取得した
+Standard は [kgsi/japanese_full.txt](https://gist.github.com/kgsi/ed2f1c5696a2211c1fd1e1e198c96ee4)
+を使用しています。その他のセットは Python の CP932 コーデックから機械的に取得した
 実用上の Shift-JIS/Windows日本語文字レパートリを基礎にしています。
-「JIS第1水準・第2水準の公式配列そのもの」を転記したファイルではありません。
 
 フォント側に対象グリフが存在しない場合、その文字はアトラスに生成できません。

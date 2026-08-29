@@ -7,8 +7,8 @@
   "lineHeight": 12,
   "base": 9,
   "atlas": {
-    "width": 1024,
-    "height": 1024,
+    "width": 2048,
+    "height": 2048,
     "padding": 1,
     "pages": [
       "atlas-0.png"

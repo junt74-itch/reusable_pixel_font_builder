@@ -22,7 +22,7 @@
   "missing_cmap_count": 244,
   "missing_bitmap_count": 0,
   "page_count": 1,
-  "atlas_size": 1024,
+  "atlas_size": 2048,
   "padding": 1,
   "validation": {
     "page_dimensions": true,

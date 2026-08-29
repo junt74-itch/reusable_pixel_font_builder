@@ -455,7 +455,7 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--fonts-dir", type=Path, default=Path("_font_asset"))
     parser.add_argument("--charset", type=Path, default=Path("character_set/game_charset_standard.txt"))
     parser.add_argument("--output-dir", type=Path, default=Path("dist"))
-    parser.add_argument("--atlas-size", type=int, default=1024)
+    parser.add_argument("--atlas-size", type=int, default=2048)
     parser.add_argument("--padding", type=int, default=1)
     parser.add_argument("--font", action="append", help="Only build matching TTF filename (repeatable).")
     parser.add_argument("--clean", action=argparse.BooleanOptionalAction, default=True)

@@ -51,7 +51,7 @@ uv run python build_fonts.py
 `dist/` 以下へ生成されます。既定の文字集合は
 `character_set/game_charset_standard.txt` です。
 
-既定では、アトラスは1024x1024ピクセル、グリフ間の余白は1ピクセルです。
+既定では、アトラスは2048x2048ピクセル、グリフ間の余白は1ピクセルです。
 1枚に収まらない場合は、フォントごとに必要な数だけアトラスを生成します。
 
 ```text
@@ -70,8 +70,8 @@ dist/
 ## 主なオプション
 
 ```powershell
-# 2048x2048のアトラスで生成
-uv run python build_fonts.py --atlas-size 2048
+# 1024x1024のアトラスで生成
+uv run python build_fonts.py --atlas-size 1024
 
 # 1フォントだけ生成し、既存の他フォントの出力を残す
 uv run python build_fonts.py --font KH-Dot-Hibiya-32.ttf --no-clean

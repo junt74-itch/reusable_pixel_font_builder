@@ -2,13 +2,17 @@ from pathlib import Path
 
 from PIL import Image
 
-from build_fonts import Glyph, ShelfPage, infer_pixel_size, load_charset, pack_glyphs, slug_for_font
+from build_fonts import Glyph, ShelfPage, infer_pixel_size, load_charset, pack_glyphs, parse_args, slug_for_font
 
 
 def test_load_charset_preserves_order_and_removes_duplicates(tmp_path: Path) -> None:
     path = tmp_path / "charset.txt"
     path.write_text("BAAB\n", encoding="utf-8")
     assert load_charset(path) == [ord("B"), ord("A")]
+
+
+def test_default_atlas_size_is_2048() -> None:
+    assert parse_args([]).atlas_size == 2048
 
 
 def test_font_filename_metadata() -> None:
