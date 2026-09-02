@@ -2,7 +2,7 @@
 
 本書は、援用者と保守者が「何が保証され、何が保証されないか」を判断するための方針書です。操作手順そのものの正は `README.md`、実装仕様の正は `build_fonts.py` と `dist/manifest.json` です。本書は、それらを再利用可能な資産として提供・保守する際の原則と将来要件を定めます。
 
-現状の確認日は 2026-08-29、前提コミットは `5c09674`（KH / JF / 美咲の TTF 収録、04B は除外）です。Must はリポジトリが満たすべき保証です。Should と Could は将来作業です。
+現状の確認日は 2026-09-02 です。04B の元 TTF と生成物は、ライセンスを確認できないため除外します。Must はリポジトリが満たすべき保証です。Should と Could は将来作業です。
 
 ## 対象読者と文書の位置づけ
 
@@ -37,8 +37,8 @@ OS や Pillow の版をまたぐ PNG のバイト単位の完全一致までは�
 
 ### 構成
 
-- `dist/` は Git 追跡済みの完成品です。索引は `dist/manifest.json`、フォント数は 25、既定文字集合は `game_charset_standard.txt` のユニーク 7,150 文字です。各 `dist/<font-id>/` に `font.png`、`font.xml`、`report.json`、`missing-characters.txt`、`license.txt` があります。
-- `_font_asset/` はソース TTF の配置場所です。KH-Dot、JF-Dot、美咲の 23 本は Git 収録済みです。04B の 2 本（`04B_19_.TTF` / `04b_25_.ttf`）は `.gitignore` で除外しています。公開クローンでは 04B 以外の自前ビルド入力が揃います。
+- `dist/` は Git 追跡済みの完成品です。索引は `dist/manifest.json`、フォント数は 23、既定文字集合は `game_charset_standard.txt` のユニーク 7,150 文字です。各 `dist/<font-id>/` に `font.png`、`font.xml`、`report.json`、`missing-characters.txt`、`license.txt` があります。
+- `_font_asset/` はソース TTF の配置場所です。KH-Dot、JF-Dot、美咲の 23 本は Git 収録済みです。04B の元 TTF はライセンス確認不可のため収録しません。公開クローンでは 23 本の自前ビルド入力が揃います。
 - 文字集合は `character_set/`、ビルダーは `build_fonts.py`、依存定義は `pyproject.toml` と `uv.lock` にあります。Python 3.11 以降が必要です。
 - テストは `tests/test_build_fonts.py` のユニットテスト 9 件です。実 TTF を使う結合テストと CI はありません。
 - リポジトリ直下にビルダーコード用の `LICENSE` はありません。`pyproject.toml` のプロジェクト名は `ts-making-pixel-font` であり、リポジトリ名と一致していません。
@@ -81,12 +81,12 @@ OS や Pillow の版をまたぐ PNG のバイト単位の完全一致までは�
 | Git リポジトリ（`dist/` を含む） | 第一配布単位 | 成立 |
 | `dist/<font-id>/` | ゲームへコピーする最小単位 | 成立 |
 | `_font_asset/` の KH / JF / 美咲 TTF | 自前ビルドの入力。確認できた家族のみ Git 収録 | 23 本を収録 |
-| `_font_asset/` の 04B TTF | 自前ビルドの入力。ライセンス未確認のため非収録 | `.gitignore` で除外 |
+| `_font_asset/` の 04B TTF / 生成物 | ライセンス未確認のため非収録 | 公開物から除外 |
 | GitHub Releases / zip | 将来の補助配布 | 未整備 |
 
 完成品だけを使う援用者は、TTF やビルダーを成果物として扱いません。カスタムビルドの成果は既定 `dist/` を上書きせず、`--output-dir` で別ディレクトリへ出します。`character_set/` の txt はビルド入力であり、ゲーム実行時アセットではありません。
 
-ソース TTF をすべて Git に入れることは Must ではありません。確認できた KH-Dot、JF-Dot、美咲のみを収録し、確認できない 04B は除外します。04B の収録是非は、原典が確認できるまで再判断しません。
+ソース TTF をすべて Git に入れることは Must ではありません。確認できた KH-Dot、JF-Dot、美咲のみを収録し、確認できない 04B とその生成物は除外します。04B の収録是非は、原典が確認できるまで再判断しません。
 
 ## ライセンス
 
@@ -94,18 +94,18 @@ OS や Pillow の版をまたぐ PNG のバイト単位の完全一致までは�
 
 ### 1. ビルダーコード
 
-現状、コード用 `LICENSE` はありません。置くことは Should であり、候補は未決です。本書は特定のライセンスを選びません。
+ビルダーコードとリポジトリ独自文書は直下の `LICENSE` にある MIT License です。第三者フォントと文字セットの条件は `THIRD_PARTY_NOTICES.md` に分離し、MIT の対象外とします。
 
 ### 2. ソース TTF
 
 各 `license.txt` は TTF の name テーブルの転記であり、原典の代替ではありません。利用前に各フォントの公式配布元で条文を確認します。現状の観察は次のとおりです。
 
-- KH-Dot、JF-Dot、美咲は `_font_asset/` に収録しています。04B は収録していません。
+- KH-Dot、JF-Dot、美咲は `_font_asset/` に収録しています。04B の元 TTF と生成物は収録していません。
 - KH-Dot: name テーブルに SIL Open Font License Version 1.1 と Keitarou Hiraki / Font Silo の著作権表示があります。
 - JF-Dot M+: M+ FONTS PROJECT の自由利用文言と URL があります。
 - JF-Dot k12x10: 配布・形式変換・組込み・修正に関する日本語文言があります。
 - 美咲 3 種: 著作権行のみが転記されています。
-- 04b 2 種: 不完全な name 記録で、制御文字も含まれます。
+- 04b 2 種: 不完全な name 記録で、制御文字も含まれるため除外しました。
 
 OFL の Reserved Font Name など、転記に現れない条項は確認事項です。代替補完や再ライセンスはしません。
 
@@ -232,7 +232,7 @@ uv run python build_fonts.py --charset <txt> --font <TTF名> --output-dir <dist�
 
 ### Should（将来）
 
-- ビルダーコード用 LICENSE を置くこと。
+- 各フォント家族の公式入手先 URL と条文を `THIRD_PARTY_NOTICES.md` で維持すること。
 - 各フォント家族の公式入手先を、確認済み URL だけで一覧化すること。
 - charset 結合の推奨手順を具体化すること。
 - `manifest.json` や `report.json` にツールチェーン情報を記録すること。
@@ -277,7 +277,7 @@ uv run python build_fonts.py --charset <txt> --font <TTF名> --output-dir <dist�
 ## 現状の未充足ギャップ
 
 - 04B のソース TTF が Git 非収録で、04B の自前ビルドには入手が必要です。KH / JF / 美咲は収録済みです。
-- ビルダーコード用 LICENSE がありません。
+- ビルダーコード用 MIT `LICENSE` と第三者告知書があります。
 - CI がありません。
 - 実 TTF を使う結合テストがありません。
 - 再現用ハッシュや成果物ゴールデンがありません。
