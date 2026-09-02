@@ -1,6 +1,7 @@
 [project]
 name = "ts-making-pixel-font"
 version = "0.1.0"
+license = { file = "LICENSE" }
 description = "Build deterministic monochrome bitmap font atlases from embedded-bitmap TrueType fonts."
 requires-python = ">=3.11"
 dependencies = [

@@ -41,7 +41,7 @@ OS や Pillow の版をまたぐ PNG のバイト単位の完全一致までは�
 - `_font_asset/` はソース TTF の配置場所です。KH-Dot、JF-Dot、美咲の 23 本は Git 収録済みです。04B の元 TTF はライセンス確認不可のため収録しません。公開クローンでは 23 本の自前ビルド入力が揃います。
 - 文字集合は `character_set/`、ビルダーは `build_fonts.py`、依存定義は `pyproject.toml` と `uv.lock` にあります。Python 3.11 以降が必要です。
 - テストは `tests/test_build_fonts.py` のユニットテスト 9 件です。実 TTF を使う結合テストと CI はありません。
-- リポジトリ直下にビルダーコード用の `LICENSE` はありません。`pyproject.toml` のプロジェクト名は `ts-making-pixel-font` であり、リポジトリ名と一致していません。
+- ビルダーコード用の `LICENSE` は MIT です。`pyproject.toml` のプロジェクト名は `ts-making-pixel-font` であり、リポジトリ名と一致していません。
 
 ### 既定ビルド契約
 
@@ -59,11 +59,11 @@ OS や Pillow の版をまたぐ PNG のバイト単位の完全一致までは�
 
 アトラスは 64 から上限まで二倍し、単一ページに収まる最小の正方形を使います。上限に収まらない場合は失敗します。
 
-出力は RGBA・RGB 白固定・アルファ 0/255 です。埋め込み 1-bit ストライクがあればそれを優先します。埋め込みを持たない美咲 2019 年版 3 種と 04b 2 種は、許可リスト上の `outline-pixel` として二値ラスタライズします。通常のアウトラインフォントへの暗黙フォールバックはありません。グリフは回転せず、欠落は `missing-characters.txt` に理由とともに記録します。`license.txt` は TTF の name テーブルからの転記です。
+出力は RGBA・RGB 白固定・アルファ 0/255 です。埋め込み 1-bit ストライクがあればそれを優先します。埋め込みを持たない美咲 2019 年版 3 種は、許可リスト上の `outline-pixel` として二値ラスタライズします。通常のアウトラインフォントへの暗黙フォールバックはありません。グリフは回転せず、欠落は `missing-characters.txt` に理由とともに記録します。`license.txt` は TTF の name テーブルからの転記です。
 
 ### 利用上の事実
 
-- `04b-19` と `04b-25` は `glyph_count` が 97、`missing_count` が 7,053 です。standard 7,150 文字の大半を欠き、日本語用ではありません。
+- 04B の生成物はライセンス未確認のため配布対象外です。
 - `kh-dot-hibiya-24` と `kh-dot-hibiya-32` の `atlas_size` は 4,096 で、既定上限ちょうどです。
 - 欠落は隠さず、代替補完しないことが現行ビルダーの契約です。
 - 既定の clean 動作は出力ディレクトリ全体を削除します。既定出力先のまま実行すると、既製 `dist/` を作り直す操作になります。
@@ -126,7 +126,7 @@ PNG、XML および付属テキストはソースフォントの派生物です�
 
 必要文字だけを収録する場合は、共通セットにゲームテキスト由来の文字を足した txt を利用者が用意し、`--charset` で渡します。結合ヘルパーは現状未実装です。
 
-欠落は失敗ではなく、代替フォントで補完しません。04b を standard でビルドしても日本語は収録されません。文字集合の由来と用途は `character_set/README.md` を参照しますが、ビルダーの正は `build_fonts.py` です。
+欠落は失敗ではなく、代替フォントで補完しません。権利確認済みの入力だけをビルド対象にします。文字集合の由来と用途は `character_set/README.md` を参照しますが、ビルダーの正は `build_fonts.py` です。
 
 ## 再現性
 
@@ -193,7 +193,7 @@ uv run python build_fonts.py --charset <txt> --font <TTF名> --output-dir <dist�
 入口は `README.md` の「完成済みアセットを利用する場合」です。TTF もビルダーも不要です。
 
 1. `dist/manifest.json` で font-id、pixel size、atlas size、missing count を確認します。
-2. 対象の `missing-characters.txt` と `license.txt` を確認します。04b は日本語用ではなく、Hibiya 24/32 はアトラス上限 4,096 です。
+2. 対象の `missing-characters.txt` と `license.txt` を確認します。Hibiya 24/32 はアトラス上限 4,096 です。
 3. `dist/<font-id>/font.png` と `font.xml` をゲーム側へコピーします。再配布時は `license.txt` もセットにします。
 4. Phaser 4 の `this.load.bitmapFont` に PNG と XML を渡します。例の正は `README.md` です。
 
@@ -223,7 +223,7 @@ uv run python build_fonts.py --charset <txt> --font <TTF名> --output-dir <dist�
 
 - 提供価値の二本立てが文書化されていること。
 - 第一配布単位が `dist/` を含む Git リポジトリであること。
-- ライセンスを三層で扱い、コード用 LICENSE は未決、フォントは原典確認、成果物は `license.txt` とセットで再配布すること。
+- ライセンスを三層で扱い、コード用 LICENSE は MIT、フォントは原典条件を維持、成果物は `license.txt` とセットで再配布すること。
 - 既製 `dist/` の文字集合は standard、カスタムは `--charset` とすること。
 - 欠落を代替せず、04b の高欠落と Hibiya の 4,096 上限を隠さないこと。
 - 自前ビルドは、収録済み TTF（KH / JF / 美咲）または利用者が置いた 04B を入力とし、出力先は既定 `dist/` 以外を推奨すること。
@@ -251,7 +251,7 @@ uv run python build_fonts.py --charset <txt> --font <TTF名> --output-dir <dist�
 
 ## ロードマップ
 
-1. **今:** 方針書と Must の充足。確認できた TTF の収録、導線 A/B の明示、04b / Hibiya / 検証契約を隠さないこと。
+1. **今:** 方針書と Must の充足。確認できた TTF の収録、導線 A/B の明示、Hibiya / 検証契約を隠さないこと。
 2. **次:** コードのライセンス表示、各 TTF の公式入手先。法的確認を伴います。
 3. **その次:** CI、manifest のツールチェーン情報、破壊的変更のバージョン方針を整備します。
 4. **任意:** Releases、デモ、成果物ゴールデンを整備します。
@@ -282,8 +282,7 @@ uv run python build_fonts.py --charset <txt> --font <TTF名> --output-dir <dist�
 - 実 TTF を使う結合テストがありません。
 - 再現用ハッシュや成果物ゴールデンがありません。
 - `pyproject.toml` の名前がリポジトリ名と一致しません。
-- 04b は standard 7,150 文字に対して 7,053 文字が欠落し、日本語既製フォントとしては使えません。
-- `license.txt` は name テーブル転記に留まり、美咲は著作権行のみ、04b は不完全です。原典確認が必要です。
+- `license.txt` は name テーブル転記に留まるため、完全な第三者条件は `THIRD_PARTY_NOTICES.md` で確認します。
 
 ## 付録: 既製 `dist/` の要約
 
@@ -291,12 +290,9 @@ uv run python build_fonts.py --charset <txt> --font <TTF名> --output-dir <dist�
 
 | 家族 | rasterization mode | glyph / missing | atlas size |
 |---|---|---:|---:|
-| 04b-19 / 04b-25 | outline-pixel | 97 / 7,053 | 128 |
 | JF-Dot k12x10 | embedded-bitmap | 7,036 / 114 | 1,024 |
 | JF-Dot M+ 10 / 10B | embedded-bitmap | 7,122 / 28 | 1,024 |
 | JF-Dot M+ 12 / 12B | embedded-bitmap | 7,122 / 28 | 2,048 |
 | KH-Dot 多数 | embedded-bitmap | 7,001 / 149 または 7,033 / 117 | 主に 2,048 |
 | KH-Dot Hibiya 24 / 32 | embedded-bitmap | 7,033 / 117 | 4,096 |
 | 美咲 3 種 | outline-pixel (8px) | 7,043 / 107 | 1,024 |
-
-04b のソースファイル名は `04B_19_.TTF` と `04b_25_.ttf`、slug は `04b-19` と `04b-25` です。
